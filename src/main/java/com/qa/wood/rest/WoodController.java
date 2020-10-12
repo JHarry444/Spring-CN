@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.websocket.server.PathParam;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,22 +35,26 @@ public class WoodController {
 	}
 
 	@PostMapping("/create")
-	public void createWood(@RequestBody Wood wood) {
-		this.service.createWood(wood);
+	public ResponseEntity<Wood> createWood(@RequestBody Wood wood) {
+		return new ResponseEntity<Wood>(this.service.createWood(wood), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/get")
-	public List<Wood> getWood() {
-		return this.service.getWood();
+	public ResponseEntity<List<Wood>> getWood() {
+		return ResponseEntity.ok(this.service.getWood());
 	}
 
 	@PutMapping("/update")
-	public void updateWood(@RequestBody Wood wood, @PathParam("id") Long id) {
-		this.service.updateWood(wood, id);
+	public ResponseEntity<Wood> updateWood(@RequestBody Wood wood, @PathParam("id") Long id) {
+		return new ResponseEntity<Wood>(this.service.updateWood(wood, id), HttpStatus.ACCEPTED);
 	}
 
 	@DeleteMapping("/remove/{id}")
-	public void deleteWood(@PathVariable Long id) {
-		this.service.deleteWood(id);
+	public ResponseEntity<Object> deleteWood(@PathVariable Long id) {
+		if (this.service.deleteWood(id)) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
