@@ -44,4 +44,9 @@ public class WoodService {
 	public void deleteWood(Long id) {
 		this.repo.deleteById(id);
 	}
+
+	public List<Wood> getWoodByColour(String colour) {
+		return this.repo.findByColour(colour);
+
+	}
 }

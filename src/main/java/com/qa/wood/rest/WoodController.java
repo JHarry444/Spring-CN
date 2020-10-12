@@ -32,6 +32,11 @@ public class WoodController {
 		return "Hello, World!";
 	}
 
+	@GetMapping("/colour/{colour}")
+	public List<Wood> getWoodByColour(@PathVariable String colour) {
+		return this.service.getWoodByColour(colour);
+	}
+
 	@PostMapping("/create")
 	public void createWood(@RequestBody Wood wood) {
 		this.service.createWood(wood);
