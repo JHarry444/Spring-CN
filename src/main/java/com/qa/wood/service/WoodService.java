@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.wood.exceptions.WoodNotFoundException;
 import com.qa.wood.persistence.domain.Wood;
-import com.qa.wood.persistence.domain.WoodRepo;
+import com.qa.wood.persistence.repos.WoodRepo;
 
 //@Component
 @Service
