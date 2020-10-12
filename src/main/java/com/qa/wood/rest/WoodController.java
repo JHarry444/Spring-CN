@@ -1,6 +1,5 @@
 package com.qa.wood.rest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -14,13 +13,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.wood.persistence.domain.Wood;
+import com.qa.wood.service.WoodService;
 
 // ctrl + space  /// ctrl + shift + o
 
 @RestController
 public class WoodController {
 
-	private List<Wood> woodDB = new ArrayList<>();
+	private WoodService service;
+
+	public WoodController(WoodService service) {
+		super();
+		this.service = service;
+	}
 
 	@GetMapping("/greeting")
 	public String greeting() {
@@ -29,23 +34,21 @@ public class WoodController {
 
 	@PostMapping("/create")
 	public void createWood(@RequestBody Wood wood) {
-		System.out.println(wood);
-		this.woodDB.add(wood);
+		this.service.createWood(wood);
 	}
 
 	@GetMapping("/get")
 	public List<Wood> getWood() {
-		return this.woodDB;
+		return this.service.getWood();
 	}
 
 	@PutMapping("/update")
 	public void updateWood(@RequestBody Wood wood, @PathParam("id") int id) {
-		this.woodDB.remove(id);
-		this.woodDB.add(id, wood);
+		this.service.updateWood(wood, id);
 	}
 
 	@DeleteMapping("/remove/{id}")
 	public void deleteWood(@PathVariable int id) {
-		this.woodDB.remove(id);
+		this.service.deleteWood(id);
 	}
 }
