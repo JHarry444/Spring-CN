@@ -1,6 +1,17 @@
 package com.qa.wood.persistence.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+// ORM - Object Relational Mapper - converts classes to tables
+
+@Entity
 public class Wood {
+
+	@Id
+	@GeneratedValue
+	private Long id;
 
 	private boolean coniferous;
 
@@ -16,7 +27,7 @@ public class Wood {
 
 	private boolean soft;
 
-	public Wood() {
+	public Wood() { // REQUIRED
 		super();
 	}
 
@@ -37,6 +48,7 @@ public class Wood {
 				+ weight + ", artificial=" + artificial + ", soft=" + soft + "]";
 	}
 
+	// REQUIRED
 	public boolean isConiferous() {
 		return coniferous;
 	}
@@ -91,6 +103,14 @@ public class Wood {
 
 	public void setSoft(boolean soft) {
 		this.soft = soft;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

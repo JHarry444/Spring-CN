@@ -43,12 +43,12 @@ public class WoodController {
 	}
 
 	@PutMapping("/update")
-	public void updateWood(@RequestBody Wood wood, @PathParam("id") int id) {
+	public void updateWood(@RequestBody Wood wood, @PathParam("id") Long id) {
 		this.service.updateWood(wood, id);
 	}
 
 	@DeleteMapping("/remove/{id}")
-	public void deleteWood(@PathVariable int id) {
+	public void deleteWood(@PathVariable Long id) {
 		this.service.deleteWood(id);
 	}
 }

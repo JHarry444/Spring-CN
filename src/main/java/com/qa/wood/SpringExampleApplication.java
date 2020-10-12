@@ -6,10 +6,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.qa.wood.service.WoodService;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 @SpringBootApplication
-@EnableSwagger2
 public class SpringExampleApplication {
 
 	public static void main(String[] args) {
