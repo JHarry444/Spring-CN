@@ -1,6 +1,7 @@
 package com.qa.wood.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,8 @@ public class WoodService {
 
 	public Wood updateWood(Wood wood, Long id) {
 		// If doesn't find a matching Wood, throw exception
-		Wood oldWood = this.repo.findById(id).orElseThrow(() -> new WoodNotFoundException());
+		Optional<Wood> optWood = this.repo.findById(id);
+		Wood oldWood = optWood.orElseThrow(() -> new WoodNotFoundException());
 
 		oldWood.setAge(wood.getAge());
 		oldWood.setArtificial(wood.isArtificial());
@@ -40,7 +42,8 @@ public class WoodService {
 		oldWood.setSoft(wood.isSoft());
 		oldWood.setWeight(wood.getWeight());
 
-		return this.repo.save(oldWood);
+		Wood saved = this.repo.save(oldWood);
+		return saved;
 	}
 
 	public boolean deleteWood(Long id) {

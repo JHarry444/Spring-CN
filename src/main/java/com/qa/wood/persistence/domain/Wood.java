@@ -114,4 +114,41 @@ public class Wood {
 		this.id = id;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Wood other = (Wood) obj;
+		if (age != other.age)
+			return false;
+		if (artificial != other.artificial)
+			return false;
+		if (colour == null) {
+			if (other.colour != null)
+				return false;
+		} else if (!colour.equals(other.colour))
+			return false;
+		if (coniferous != other.coniferous)
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (soft != other.soft)
+			return false;
+		if (weight != other.weight)
+			return false;
+		return true;
+	}
+
 }

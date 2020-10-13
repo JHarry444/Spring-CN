@@ -44,7 +44,7 @@ public class WoodIntegrationTest {
 		String requestBody = this.mapper.writeValueAsString(newWood);
 		RequestBuilder request = post("/create").contentType(MediaType.APPLICATION_JSON).content(requestBody);
 
-		ResultMatcher checkStatus = status().isCreated();
+		ResultMatcher checkStatus = status().is(201);
 
 		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
 		savedWood.setId(2L); // id = 2 because 1 value is inserted using data.sql
@@ -71,19 +71,12 @@ public class WoodIntegrationTest {
 		ResultMatcher checkStatus = status().isAccepted();
 
 		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
-		savedWood.setId(1L); // id = 2 because 1 value is inserted using data.sql
+		savedWood.setId(1L); // id = 1 because we're updating the value inserted using data.sql
 
 		String resultBody = this.mapper.writeValueAsString(savedWood);
 		ResultMatcher checkBody = content().json(resultBody);
 
 		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
-
-		MvcResult result = this.mockMVC.perform(request).andExpect(checkStatus).andReturn();
-
-		// In case you need to access the actual result as an object:
-		String reqBody = result.getResponse().getContentAsString();
-
-		Wood woodResult = this.mapper.readValue(reqBody, Wood.class);
 	}
 
 	@Test
