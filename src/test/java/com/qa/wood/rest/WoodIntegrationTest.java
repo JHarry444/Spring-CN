@@ -37,7 +37,7 @@ public class WoodIntegrationTest {
 		ResultMatcher checkStatus = status().isCreated();
 
 		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
-		savedWood.setId(1L);
+		savedWood.setId(2L); // id = 2 because 1 value is inserted using data.sql
 
 		String resultBody = this.mapper.writeValueAsString(savedWood);
 		ResultMatcher checkBody = content().json(resultBody);

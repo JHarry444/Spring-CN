@@ -2,6 +2,7 @@ package com.qa.wood.persistence.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 // ORM - Object Relational Mapper - converts classes to tables
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 public class Wood {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private boolean coniferous;
