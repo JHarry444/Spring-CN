@@ -2,6 +2,8 @@ package com.qa.wood.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,8 @@ public class WoodServiceUnitTest {
 
 		// THEN
 		assertThat(this.service.createWood(newWood)).isEqualTo(savedWood);
+
+		Mockito.verify(this.repo, Mockito.times(1)).save(newWood);
 	}
 
 	@Test
@@ -59,6 +63,40 @@ public class WoodServiceUnitTest {
 
 		// THEN
 		assertThat(this.service.updateWood(newWood, id)).isEqualTo(updatedWood);
+
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
+		Mockito.verify(this.repo, Mockito.times(1)).save(updatedWood);
 	}
 
+	@Test
+	void testGet() {
+		// GIVEN
+		Wood wood = new Wood(false, "blue", "fir", 47, 435, true, true);
+		wood.setId(1L); // wood object to match the one in wood-data.sql
+		List<Wood> woods = new ArrayList<>();
+		woods.add(wood);
+
+		// WHEN
+		Mockito.when(this.repo.findAll()).thenReturn(woods);
+
+		// THEN
+		assertThat(this.service.getWood()).isEqualTo(woods);
+
+		Mockito.verify(this.repo, Mockito.times(1)).findAll();
+	}
+
+	@Test
+	void testDelete() {
+		// GIVEN
+		Long id = 1L;
+		boolean found = false;
+
+		// WHEN
+		Mockito.when(this.repo.existsById(id)).thenReturn(found);
+
+		// THEN
+		assertThat(this.service.deleteWood(id)).isEqualTo(!found);
+
+		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
+	}
 }
