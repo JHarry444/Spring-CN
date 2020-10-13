@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Wood {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // setting the id field to AUTO_INCREMENT
 	private Long id;
 
 	private boolean coniferous;
