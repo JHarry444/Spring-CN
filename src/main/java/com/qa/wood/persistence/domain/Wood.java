@@ -115,6 +115,20 @@ public class Wood {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + age;
+		result = prime * result + (artificial ? 1231 : 1237);
+		result = prime * result + ((colour == null) ? 0 : colour.hashCode());
+		result = prime * result + (coniferous ? 1231 : 1237);
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (soft ? 1231 : 1237);
+		result = prime * result + weight;
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -133,11 +147,6 @@ public class Wood {
 		} else if (!colour.equals(other.colour))
 			return false;
 		if (coniferous != other.coniferous)
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
