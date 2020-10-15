@@ -47,7 +47,9 @@ public class WoodService {
 	}
 
 	public boolean deleteWood(Long id) {
-		this.repo.deleteById(id);
+		if (this.repo.existsById(id)) {
+			this.repo.deleteById(id);
+		}
 		return !this.repo.existsById(id);
 	}
 }

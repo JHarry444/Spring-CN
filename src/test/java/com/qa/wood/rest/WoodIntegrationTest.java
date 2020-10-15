@@ -44,19 +44,24 @@ public class WoodIntegrationTest {
 	void testCreate() throws Exception {
 		Wood newWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
 		String requestBody = this.mapper.writeValueAsString(newWood);
-		RequestBuilder request = post("/create").contentType(MediaType.APPLICATION_JSON).content(requestBody);
+		RequestBuilder request = post("/create")
+				.contentType(MediaType.APPLICATION_JSON).content(requestBody);
 
 		ResultMatcher checkStatus = status().is(201);
 
-		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
-		savedWood.setId(2L); // id = 2 because 1 value is inserted using data.sql
+		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true,
+				true);
+		savedWood.setId(2L); // id = 2 because 1 value is inserted using
+								// data.sql
 
 		String resultBody = this.mapper.writeValueAsString(savedWood);
 		ResultMatcher checkBody = content().json(resultBody);
 
-		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
+		this.mockMVC.perform(request).andExpect(checkStatus)
+				.andExpect(checkBody);
 
-		MvcResult result = this.mockMVC.perform(request).andExpect(checkStatus).andReturn();
+		MvcResult result = this.mockMVC.perform(request).andExpect(checkStatus)
+				.andReturn();
 
 		// In case you need to access the actual result as an object:
 		String reqBody = result.getResponse().getContentAsString();
@@ -68,17 +73,30 @@ public class WoodIntegrationTest {
 	void testUpdate() throws Exception {
 		Wood newWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
 		String requestBody = this.mapper.writeValueAsString(newWood);
-		RequestBuilder request = put("/update?id=1").contentType(MediaType.APPLICATION_JSON).content(requestBody);
+		RequestBuilder request = put("/update?id=1")
+				.contentType(MediaType.APPLICATION_JSON).content(requestBody);
 
 		ResultMatcher checkStatus = status().isAccepted();
 
-		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
-		savedWood.setId(1L); // id = 1 because we're updating the value inserted using data.sql
+		Wood savedWood = new Wood(true, "blue", "mahogany", 35, 3453, true,
+				true);
+		savedWood.setId(1L); // id = 1 because we're updating the value inserted
+								// using data.sql
 
 		String resultBody = this.mapper.writeValueAsString(savedWood);
 		ResultMatcher checkBody = content().json(resultBody);
 
-		this.mockMVC.perform(request).andExpect(checkStatus).andExpect(checkBody);
+		this.mockMVC.perform(request).andExpect(checkStatus)
+				.andExpect(checkBody);
+	}
+
+	@Test
+	void testUpdateNotFound() throws Exception {
+		Wood newWood = new Wood(true, "blue", "mahogany", 35, 3453, true, true);
+		String requestBody = this.mapper.writeValueAsString(newWood);
+		this.mockMVC.perform(put("/update?id=4494")
+				.contentType(MediaType.APPLICATION_JSON).content(requestBody))
+				.andExpect(status().isNotFound());
 	}
 
 	@Test
@@ -89,9 +107,6 @@ public class WoodIntegrationTest {
 
 		this.mockMVC.perform(request).andExpect(checkStatus);
 
-//		ResultMatcher checkStatus2 = status().is(500);
-//
-//		this.mockMVC.perform(request).andExpect(checkStatus);
 	}
 
 	@Test
@@ -102,7 +117,8 @@ public class WoodIntegrationTest {
 		woods.add(wood);
 		String responseBody = this.mapper.writeValueAsString(woods);
 
-		this.mockMVC.perform(get("/get")).andExpect(status().isOk()).andExpect(content().json(responseBody));
+		this.mockMVC.perform(get("/get")).andExpect(status().isOk())
+				.andExpect(content().json(responseBody));
 	}
 
 }

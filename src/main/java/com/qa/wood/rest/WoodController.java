@@ -54,7 +54,7 @@ public class WoodController {
 	@DeleteMapping("/remove/{id}")
 	public ResponseEntity<Object> deleteWood(@PathVariable Long id) {
 		if (this.service.deleteWood(id)) {
-			return new ResponseEntity<>(HttpStatus.OK);
+			return ResponseEntity.ok().build();
 		} else {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

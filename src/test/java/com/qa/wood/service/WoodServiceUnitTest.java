@@ -31,8 +31,10 @@ public class WoodServiceUnitTest {
 	void testCreate() {
 		// GIVEN
 		Long id = 1L;
-		Wood newWood = new Wood(true, "blue", "mahogany", 324, 2234, true, false);
-		Wood savedWood = new Wood(true, "blue", "mahogany", 324, 2234, true, false);
+		Wood newWood = new Wood(true, "blue", "mahogany", 324, 2234, true,
+				false);
+		Wood savedWood = new Wood(true, "blue", "mahogany", 324, 2234, true,
+				false);
 		savedWood.setId(id);
 
 		// WHEN
@@ -51,12 +53,15 @@ public class WoodServiceUnitTest {
 		Long id = 1L;
 
 		// will be passed in
-		Wood newWood = new Wood(true, "blue", "mahogany", 324, 2234, true, false);
+		Wood newWood = new Wood(true, "blue", "mahogany", 324, 2234, true,
+				false);
 		// will be found by findById()
-		Wood oldWood = new Wood(false, "red", "birch", 34235, 6464, false, true);
+		Wood oldWood = new Wood(false, "red", "birch", 34235, 6464, false,
+				true);
 		oldWood.setId(id);
 		// will be saved back to db and returned by method
-		Wood updatedWood = new Wood(true, "blue", "mahogany", 324, 2234, true, false);
+		Wood updatedWood = new Wood(true, "blue", "mahogany", 324, 2234, true,
+				false);
 		updatedWood.setId(id);
 
 		// WHEN
@@ -99,6 +104,6 @@ public class WoodServiceUnitTest {
 		// THEN
 		assertThat(this.service.deleteWood(id)).isEqualTo(!found);
 
-		Mockito.verify(this.repo, Mockito.times(1)).existsById(id);
+		Mockito.verify(this.repo, Mockito.times(2)).existsById(id);
 	}
 }
